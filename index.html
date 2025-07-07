@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sacramento de la Reconciliación</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      background-image: url('espiritusanto.jpg'); no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Overlay oscuro para mejorar legibilidad */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .text-slider {
+      font-size: 1.4rem;
+      min-height: 3rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .text-slide {
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .text-slide.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #e6b800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Sacramento de la Reconciliación</h1>
+    <div class="text-slider" id="slider">
+      <div class="text-slide active">Sacramento de la Reconciliación</div>
+      <div class="text-slide">Paso a paso para hacer un buen examen de Conciencia</div>
+      <div class="text-slide">Dios perdona.</div>
+    </div>
+
+    <a href="oracion.html" class="btn-primary">Comenzar ahora</a>
+  </div>
+
+
+  <script>
+    const slides = document.querySelectorAll('.text-slide');
+    let current = 0;
+
+    function showNextSlide() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+
+    // Cambia cada 4 segundos
+    setInterval(showNextSlide, 4000);
+  </script>
+
+
+</body>
+</html>

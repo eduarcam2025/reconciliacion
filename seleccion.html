@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selecciona tu grupo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: url('imgs/espiritusanto.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-image 0.5s ease;
+    }
+
+    h1 {
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      margin-bottom: 2rem;
+      z-index: 2;
+    }
+
+    .card-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+      width: 250px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    .card p {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Selecciona tu grupo</h1>
+
+  <div class="card-container">
+    <div class="card"
+         onmouseover="cambiarFondo('ninos')"
+         onmouseout="restaurarFondo()"
+         onclick="window.location.href='ninos.html'">
+      <h2>Niños</h2>
+      <p>Guía especial adaptada para los más pequeños.</p>
+    </div>
+
+    <div class="card"
+         onmouseover="cambiarFondo('jovenes')"
+         onmouseout="restaurarFondo()"
+         onclick="window.location.href='jovenes.html'">
+      <h2>Jóvenes</h2>
+      <p>Materiales interactivos y dinámicos para jóvenes.</p>
+    </div>
+
+    <div class="card"
+         onmouseover="cambiarFondo('adultos')"
+         onmouseout="restaurarFondo()"
+         onclick="window.location.href='adultos.html'">
+      <h2>Adultos</h2>
+      <p>Profundización bíblica y espiritual para adultos.</p>
+    </div>
+  </div>
+
+
+  </div>
+
+  <script>
+  const fondos = {
+    ninos: "imgs/nina2.jpg",
+    jovenes: "imgs/jovenes.jpg",
+    adultos: "imgs/adulto1.jpg",
+    default: "imgs/espiritusanto.jpg"
+  };
+
+    function cambiarFondo(grupo) {
+      document.body.style.backgroundImage = `url('${fondos[grupo]}')`;
+    }
+
+    function restaurarFondo() {
+      document.body.style.backgroundImage = `url('${fondos.default}')`;
+    }
+
+  </script>
+
+
+</body>
+</html>
