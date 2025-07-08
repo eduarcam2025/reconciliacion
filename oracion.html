@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oración - Sacramento de la Reconciliación</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('espiritusanto.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .typewriter {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      white-space: pre-line;
+      min-height: 200px;
+    }
+
+    .btn-continuar {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-continuar:hover {
+      background-color: #e6b800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Oración</h1>
+    <div class="typewriter" id="typewriter"></div>
+    <br><br>
+    <a href="seleccion.html" class="btn-continuar" id="continueBtn" style="display: none;">Continuar</a>
+  </div>
+
+  <script>
+    const textoOriginal = `Ven, Espíritu Santo,
+Llena los corazones de tus fieles
+y enciende en ellos
+el fuego de tu amor.
+Envía, Señor, tu Espíritu.
+Que renueve la faz de la Tierra.
+
+Oh Dios,
+que llenaste los corazones de tus
+fieles con la luz del Espíritu
+Santo; concédenos que,
+guiados por el mismo Espíritu,
+sintamos con rectitud y
+gocemos siempre de tu consuelo.
+Por Jesucristo Nuestro Señor.
+Amén.`;
+
+    const palabras = textoOriginal.split(/(?<=\\S)\\s/); // Divide por espacio, manteniendo saltos
+    const contenedor = document.getElementById("typewriter");
+    const btnContinuar = document.getElementById("continueBtn");
+
+    let index = 0;
+
+    function escribirPalabra() {
+      if (index < palabras.length) {
+        contenedor.textContent += palabras[index] + (palabras[index].match(/\n/) ? '' : ' ');
+        index++;
+        setTimeout(escribirPalabra, 1500); // Velocidad: 150ms por palabra
+      } else {
+        btnContinuar.style.display = "inline-block"; // Mostrar botón al terminar
+      }
+    }
+
+    // Iniciar efecto al cargar la página
+    window.onload = () => {
+      setTimeout(escribirPalabra, 500); // Retraso inicial
+    };
+  </script>
+
+</body>
+</html>
