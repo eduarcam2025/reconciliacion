@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Examen de Conciencia</title>
+  <style>
+  body {
+  font-family: Arial, sans-serif;
+  background: url('imgs/adultoopc1a.jpg') no-repeat center center fixed;
+
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#question-container {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Examen de Conciencia</h1>
+    <div id="question-container"></div>
+    <button id="next-btn">Siguiente</button>
+    <p id="progress"></p>
+  </div>
+
+  <script>
+  // ⚠️ Reemplaza con tu URL de API de NocoDB
+const API_URL = 'https://app.nocodb.com/api/v2/tables/ma9gj7dnxydrbd3/records';
+const AUTH_TOKEN = 'bVeUflboREE5qKo-3C2ynKlfmxcFaRxDhS2h2Uh1';
+
+
+const preguntas = [
+  { texto: "¿He rezado mis oraciones?", valor: "Positivo" },
+  { texto: "¿He ido a Misa los Domingos?", valor: "Positivo" },
+  { texto: "¿He tomado el nombre de Dios en vano?", valor: "Negativo" },
+  { texto: "¿Me he distraído voluntariamente en Misa o en la Iglesia?", valor: "Negativo" },
+  { texto: "¿He ayudado en casa?", valor: "Positivo" },
+  { texto: "¿He sido egoísta o he tratado a mis padres y hermanos con poco cariño?", valor: "Negativo" },
+  { texto: "¿He obedecido a mis padres y profesores?", valor: "Positivo" },
+  { texto: "¿He compartido mis juguetes?", valor: "Positivo" },
+  { texto: "¿He sido impaciente?", valor: "Negativo" },
+  { texto: "¿Me he enfadado?", valor: "Negativo" },
+  { texto: "¿He sido caprichoso o pesado para que las cosas se hicieran como yo quiero?", valor: "Negativo" },
+  { texto: "¿Pierdo el tiempo en clase?", valor: "Negativo" },
+  { texto: "¿He hecho mis deberes lo mejor que puedo?", valor: "Positivo" },
+  { texto: "¿He copiado en los exámenes?", valor: "Negativo" },
+  { texto: "¿Me he peleado?", valor: "Negativo" },
+  { texto: "¿He hecho daño a alguna persona hablando mal de ella?", valor: "Negativo" },
+  { texto: "¿He dicho mentiras?", valor: "Negativo" },
+  { texto: "¿He robado algo?", valor: "Negativo" },
+  { texto: "¿He estropeado alguna cosa que no era mía a propósito?", valor: "Negativo" },
+  { texto: "¿He dado buen ejemplo?", valor: "Positivo" },
+  { texto: "¿He animado a otros a que hicieran cosas malas?", valor: "Negativo" },
+  { texto: "¿He sido egoísta de pensamiento o de obra?", valor: "Negativo" },
+  { texto: "¿He tenido celos de otros?", valor: "Negativo" },
+  { texto: "¿He excluido a alguien de mis juegos?", valor: "Negativo" },
+  { texto: "¿He rezado por los demás y les he ayudado para que estén más cerca de Dios?", valor: "Positivo" }
+];
+
+
+let currentQuestionIndex = 0;
+let registrosPecados = []; // Aquí guardamos las respuestas con puntuación 1
+
+const questionContainer = document.getElementById("question-container");
+const nextBtn = document.getElementById("next-btn");
+const progress = document.getElementById("progress");
+
+function showQuestion() {
+  const pregunta = preguntas[currentQuestionIndex];
+  questionContainer.innerHTML = `
+    <p><strong>${pregunta.texto}</strong></p>
+    <label><input type="radio" name="respuesta" value="Sí"> Sí</label><br>
+<label><input type="radio" name="respuesta" value="No"> No</label>
+  `;
+  updateProgress();
+}
+
+
+function updateProgress() {
+  progress.textContent = `Pregunta ${currentQuestionIndex + 1} de ${preguntas.length}`;
+}
+
+async function saveAnswer(preguntaTexto, valor, respuesta, puntuacion) {
+  const preguntaFormateada = `${respuesta} ${preguntaTexto.replace(/[¿?]/g, '')}`.trim();
+
+  const data = {
+    Pregunta: preguntaFormateada,
+    valor,
+    respuesta,
+    puntuacion,
+    respuesta2: preguntaFormateada
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'xc-token': AUTH_TOKEN
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error al guardar:', errorText);
+      alert(`Error guardando: ${errorText}`);
+    }
+
+    // Si la puntuación es 1, lo añadimos a la lista de pecados
+    if (puntuacion === 1) {
+      registrosPecados.push(preguntaFormateada);
+    }
+
+  } catch (error) {
+    console.error('Error de red:', error);
+    alert('Hubo un problema conectándose al servidor.');
+  }
+}
+
+nextBtn.addEventListener("click", async () => {
+  const selected = document.querySelector('input[name="respuesta"]:checked');
+  if (!selected) return alert("Por favor, selecciona una opción.");
+
+  const respuesta = selected.value;
+  const preguntaObj = preguntas[currentQuestionIndex];
+  const valor = preguntaObj.valor;
+
+  // Calcular puntuación
+  let puntuacion = 0;
+  if ((valor === "Positivo" && respuesta === "No") || (valor === "Negativo" && respuesta === "Sí")) {
+    puntuacion = 1;
+  }
+
+  // Guardar en NocoDB
+  await saveAnswer(preguntaObj.texto, valor, respuesta, puntuacion);
+
+  currentQuestionIndex++;
+  if (currentQuestionIndex < preguntas.length) {
+    showQuestion();
+  } else {
+    // Mostrar resultados finales
+    mostrarResumenFinal();
+  }
+});
+
+function mostrarResumenFinal() {
+  questionContainer.innerHTML = `
+    <h2>Estos son los pecados que debo llevar al Sacerdote</h2>
+    <ul>
+      ${registrosPecados.map(pecado => `<li>${pecado}</li>`).join("")}
+    </ul>
+    <button id="download-pdf-btn">Descargar como PDF</button>
+  `;
+
+  nextBtn.style.display = "none";
+
+  // Botón de descarga de PDF
+  document.getElementById("download-pdf-btn").addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Estos son los pecados que debo llevar al Sacerdote", 10, 20);
+
+    registrosPecados.forEach((linea, index) => {
+      doc.setFontSize(12);
+      doc.text(`• ${linea}`, 15, 35 + (index * 10));
+    });
+
+    doc.save("pecados.pdf");
+  });
+}
+
+showQuestion();
+
+  </script>
+</body>
+</html>
