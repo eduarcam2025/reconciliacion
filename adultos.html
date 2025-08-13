@@ -39,6 +39,16 @@ button {
 button:disabled {
   background-color: #ccc;
 }
+.explanation-box {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff;
+  font-size: 0.9em;
+  color: #495057;
+  line-height: 1.5;
+  border-radius: 0 4px 4px 0;
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -59,44 +69,186 @@ const AUTH_TOKEN = 'bVeUflboREE5qKo-3C2ynKlfmxcFaRxDhS2h2Uh1';
 
 
 const preguntas = [
-  { texto: "¿He rechazado o abandonado mi fe?", valor: "Negativo" },
-  { texto: "¿Me he preocupado por conocer mejor mi fe?", valor: "Positivo" },
-  { texto: "¿He defendido Mi fé?", valor: "Positivo" },
-  { texto: "¿Me he avergonzado de Mi fé?", valor: "Negativo" },
-  { texto: "¿Hay algún aspecto de la fe que no acepto?", valor: "Negativo" },
-  { texto: "¿He tomado el nombre de Dios envano?", valor: "Negativo" },
-  { texto: "¿He hecho espiritismo o he confiado en adivinos u horóscopos?", valor: "Negativo" },
-  { texto: "¿He mostrado falta de respeto por las personas, lugares o cosas santas?", valor: "Negativo" },
-  { texto: "¿He faltado voluntariamente a la Santa Misa los domingos o los días de precepto?", valor: "Negativo" },
-  { texto: "¿He recibido al Señor en la Sagrada Comunión teniendo algún pecado grave en mi conciencia?", valor: "Negativo" },
-  { texto: "¿He recibido la Sagrada Comunión sin agradecimiento o sin la debida reverencia?", valor: "Negativo" },
-  { texto: "¿He sido impaciente, he tenido celos o me he enfadado?", valor: "Negativo" },
-  { texto: "¿He albergado rencores o he estado poco dispuesto a perdonar?", valor: "Negativo" },
-  { texto: "¿He sido violento con otras personas verbal o físicamente?", valor: "Negativo" },
-  { texto: "¿He cooperado o alentado a alguien a abortar, destruir embriones, a la eutanasia o a otro medio de acabar con la vida humana?", valor: "Negativo" },
-  { texto: "¿He tenido odio o he hecho juicios críticos de pensamiento o de obra?", valor: "Negativo" },
-  { texto: "¿He menospreciado a otros?", valor: "Negativo" },
-  { texto: "¿He hablado mal de otros?", valor: "Negativo" },
-  { texto: "¿He tomado alcohol en exceso?", valor: "Negativo" },
-  { texto: "¿He consumido drogas?", valor: "Negativo" },
-  { texto: "¿He mirado videos o páginas Web pornográficas?", valor: "Negativo" },
-  { texto: "¿He hecho cosas impuras conmigo mismo o con otros?", valor: "Negativo" },
-  { texto: "¿Vivo con alguien como si estuviéramos casados sin estarlo?", valor: "Negativo" },
-  { texto: "¿Si estoy casado, ¿procuro amar a mi cónyuge por encima de cualquier otra persona?", valor: "Positivo" },
-  { texto: "¿Permito que mi trabajo ocupe tiempo y energías que corresponden a mi familia o amigos?", valor: "Negativo" },
-  { texto: "¿He sido soberbio o egoísta de pensamiento o de obra?", valor: "Negativo" },
-  { texto: "¿Pongo mi matrimonio en primer lugar?", valor: "Positivo" },
-  { texto: "¿Pongo a mis hijos en primer lugar?", valor: "Positivo" },
-  { texto: "¿Tengo una actitud abierta a nuevas vidas?", valor: "Positivo" },
-  { texto: "¿He hecho daño a alguien con insultos o hablando mal de ellos? ", valor: "Negativo" },
-  { texto: "¿Permito que mi trabajo ocupe tiempo y energías que corresponden a mi familia o amigos?", valor: "Negativo" },
-  { texto: "¿He sido soberbio o egoísta de pensamiento o de obra?", valor: "Negativo" },
-  { texto: "¿He desatendido a los pobres o a los necesitados?", valor: "Negativo" },
-  { texto: "¿He gastado dinero para mi comodidad o lujo personal olvidando mis responsabilidades hacia otros y hacia la Iglesia?", valor: "Negativo" },
-  { texto: "¿¿Me he dejado llevar por la pereza??", valor: "Negativo" },
-  { texto: "¿He preferido mi comodidad personal al servicio a los demás?", valor: "Negativo" },
-  { texto: "¿He dicho mentiras?", valor: "Negativo" },
-  { texto: "¿He desatendido mi responsabilidad de acercar a los demás a Dios con miejemplo y mi palabra?", valor: "Negativo" }
+  { 
+    texto: "¿He rechazado o abandonado mi fe?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si has negado activamente tu fe, evitado hablar de ella para no ofender a otros o dejado de practicar por pereza o vergüenza."
+  },
+  { 
+    texto: "¿Me he preocupado por conocer mejor mi fe?", 
+    valor: "Positivo",
+    explicacion: "Piensa si has leído la Biblia, orado sólo en momentos de tribulación, asistido a catequesis o buscado crecer en el conocimiento de tu religión, instruir a tu familia, o participas de ella solo por compromisos o creencias superficiales."
+  },
+  { 
+    texto: "¿He defendido Mi fé?", 
+    valor: "Positivo",
+    explicacion: "Considera si has tenido el valor de defender tus creencias ante opiniones contrarias, sin caer en fanatismo, pero manteniendo con respeto tus convicciones."
+  },
+  { 
+    texto: "¿Me he avergonzado de Mi fé?", 
+    valor: "Negativo",
+    explicacion: "Piensa en situaciones donde pudiste ocultar tu identidad cristiana por miedo al juicio de otros o para encajar en un grupo. La vergüenza de la fe contradice la llamada de Jesús."
+  },
+  { 
+    texto: "¿Hay algún aspecto de la fe que no acepto?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si rechazas algún dogma, enseñanza moral o autoridad de la Iglesia sin motivo fundado."
+  },
+  { 
+    texto: "¿He tomado el nombre de Dios en vano?", 
+    valor: "Negativo",
+    explicacion: "Tomo el nombre de Dios en vano cuando: Estoy en la misa con pereza, distraído o de mal humor. Cuando me burlo de los compañeros llamados a participar activamente en la misa (leer, cantar, hacer la colecta, portar ofrendas) Cuando hago juramentos o promesas en el nombre de Dios sabiendo en mi corazón que es falso lo que prometo."
+  },
+  { 
+    texto: "¿He hecho espiritismo o he confiado en adivinos u horóscopos?", 
+    valor: "Negativo",
+    explicacion: "Revisa si has participado en prácticas ocultistas (santería, caracoles, brujería, astrología, prácticas de nueva era, yoga) o puesto tu confianza en predicciones en lugar de la providencia divina."
+  },
+  { 
+    texto: "¿He mostrado falta de respeto por las personas, lugares o cosas santas?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si has faltado al respeto a sacerdotes, religiosos, templos, sagrarios, o cualquier elemento consagrado a la doctrina de la iglesia. Ten en cuenta que los templos parroquiales no son lugares para dejar desechos de golosinas, bebidas o similares."
+  },
+  { 
+    texto: "¿He faltado voluntariamente a la Santa Misa los domingos o los días de precepto?", 
+    valor: "Negativo",
+    explicacion: "Considera si has omitido asistir a Misa sin motivo grave, recordando que es un mandamiento de la Iglesia para mantener viva tu relación con Cristo en la Eucaristía. Perderte la misa dominical sólo es válido cuando tienes una afección limitante de salud, te encuentras cuidando a un familiar grave o por tu horario laboral no te es posible asistir."
+  },
+  { 
+    texto: "¿He recibido al Señor en la Sagrada Comunión teniendo algún pecado grave en mi conciencia?", 
+    valor: "Negativo",
+    explicacion: "Verifica si has comulgado estando en pecado mortal sin haber recibido previamente el sacramento de la Reconciliación, lo cual es una grave falta de respeto a este sacramento."
+  },
+  { 
+    texto: "¿He recibido la Sagrada Comunión sin agradecimiento o sin la debida reverencia?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si has comulgado con distracción, sin preparación interior o sin acción de gracias."
+  },
+  { 
+    texto: "¿He sido impaciente, he tenido celos o me he enfadado?", 
+    valor: "Negativo",
+    explicacion: "Examina si has permitido que la ira controle tus acciones, llegando incluso a deseos de venganza o palabras hirientes contra el prójimo."
+  },
+  { 
+    texto: "¿He albergado rencores o he estado poco dispuesto a perdonar?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si has guardado rencor, negándote a perdonar como Cristo nos perdonó, o si has evitado reconciliarte con quienes te ofendieron."
+  },
+  { 
+    texto: "¿He sido violento con otras personas verbal o físicamente?", 
+    valor: "Negativo",
+    explicacion: "Considera si has buscado conflictos innecesarios, respondiendo con violencia física o verbal en lugar de buscar la paz y la comprensión. Si es un comportamiento defensivo busca orientación apropiada para cambiar positivamente esa conducta destructiva."
+  },
+  { 
+    texto: "¿He cooperado o alentado a alguien a abortar, destruir embriones, a la eutanasia o a otro medio de acabar con la vida humana?", 
+    valor: "Negativo",
+    explicacion: "Revisa si has apoyado, promovido o participado en acciones contra la vida desde su concepción, si por 'falsa piedad' crees que los enfermos tienen derecho a decidir cómo, cuándo y dónde irse de este mundo sin esperar con Fe en la gracia divina."
+  },
+  { 
+    texto: "¿He tenido odio o he hecho juicios críticos de pensamiento o de obra?", 
+    valor: "Negativo",
+    explicacion: "El egoísmo puede ser un sintoma de envidia, y la envidia ante los meritos y poseciones de otros, son contrarias a Dios."
+  },
+  { 
+    texto: "¿He menospreciado a otros?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si has tratado a alguien con desprecio, arrogancia o falta de dignidad."
+  },
+  { 
+    texto: "¿He hablado mal de otros?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si has utilizado tu palabra para herir, humillar o difamar a otros, cuando la lengua debería ser instrumento de edificación y no de destrucción"
+  },
+  { 
+    texto: "¿He tomado alcohol en exceso?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si has perdido el control por el consumo de alcohol, poniendo en riesgo tu salud, tu capacidad de juicio y tu responsabilidad ante Dios y los demás."
+  },
+  { 
+    texto: "¿He consumido drogas?", 
+    valor: "Negativo",
+    explicacion: "Considera si has usado sustancias ilícitas que dañan tu cuerpo (templo del Espíritu Santo) y alteran tu capacidad de vivir según la voluntad de Dios."
+  },
+  { 
+    texto: "¿He mirado videos o páginas Web pornográficas?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si has expuesto tu mente a contenidos que corrompen la pureza, sabiendo que Jesús dijo: 'Bienaventurados los limpios de corazón porque ellos verán a Dios'."
+  },
+  { 
+    texto: "¿He hecho cosas impuras conmigo mismo o con otros?", 
+    valor: "Negativo",
+    explicacion: "Considera si has cometido actos contra la castidad, ya sea en soledad o con otras personas, olvidando que tu cuerpo es templo del Espíritu Santo."
+  },
+  { 
+    texto: "¿Vivo con alguien como si estuviéramos casados sin estarlo?", 
+    valor: "Negativo",
+    explicacion: "Piensa si tienes una relación de convivencia con intimidad física sin estar casado por la Iglesia. En estos casos busca la guía del sacerdote para que pueda orientarte."
+  },
+  { 
+    texto: "¿Si estoy casado, procuro amar a mi cónyuge por encima de cualquier otra persona?", 
+    valor: "Positivo",
+    explicacion: "Reflexiona si priorizas a tu esposo/a en afecto, tiempo y decisiones. Orar juntos, la Santa Misa y contar con guía espiritual ayudarán a mantener la relación."
+  },
+  { 
+    texto: "¿Pongo mi matrimonio en primer lugar?", 
+    valor: "Positivo",
+    explicacion: "Evalúa si tu compromiso matrimonial está por encima del trabajo, amigos o familia de origen."
+  },
+  { 
+    texto: "¿Pongo a mis hijos en primer lugar?", 
+    valor: "Positivo",
+    explicacion: "Considera si les dedicas tiempo, atención, amor y formación espiritual."
+  },
+  { 
+    texto: "¿Tengo una actitud abierta hacia experimentar estilos de vida que pudieran apartarme de los valores de mi fe?", 
+    valor: "Negativo",
+    explicacion: "La iglesia nos llama a experimentar la 'vida nueva' pero refiriéndose a la santidad en la vida ordinaria, ofreciendo las acciones como oración y servicio, viviendo el Evangelio en medio del mundo."
+  },
+  { 
+    texto: "¿He hecho daño a alguien con insultos o hablando mal de ellos?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si has utilizado tu palabra para herir, humillar o difamar a otros, cuando la lengua debería ser instrumento de edificación y no de destrucción."
+  },
+  { 
+    texto: "¿Permito que mi trabajo ocupe tiempo y energías que corresponden a mi familia o amigos?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si trabajas en exceso o te entregas a pasatiempos, descuidando relaciones importantes."
+  },
+  { 
+    texto: "¿He sido soberbio o egoísta de pensamiento o de obra?", 
+    valor: "Negativo",
+    explicacion: "El egoísmo puede ser un sintoma de envidia, y la envidia ante los meritos y poseciones de otros, son contrarias a Dios."
+  },
+  { 
+    texto: "¿He desatendido a los pobres o a los necesitados?", 
+    valor: "Negativo",
+    explicacion: "Considera si has pasado de largo ante alguien que necesita ayuda."
+  },
+  { 
+    texto: "¿He gastado dinero para mi comodidad o lujo personal olvidando mis responsabilidades hacia otros y hacia la Iglesia?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si priorizas compras innecesarias frente a necesidades familiares, carestías de tú parroquia o ayuda a necesitados."
+  },
+  { 
+    texto: "¿Me he dejado llevar por la pereza?", 
+    valor: "Negativo",
+    explicacion: "Evalúa si haces el esfuerzo necesario en tus responsabilidades, prefiriendo la comodidad antes que el trabajo honesto que contribuye al bien común."
+  },
+  { 
+    texto: "¿He preferido mi comodidad personal al servicio a los demás?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si has evitado ayudar a quienes necesitan de ti por simple comodidad, olvidando el mandamiento de Jesús de servir al prójimo como a Él mismo. Esto aplica cuando no colaboras en casa o no respetas el trabajo de quienes se ocupan en limpiar y proteger espacios de uso común."
+  },
+  { 
+    texto: "¿He dicho mentiras?", 
+    valor: "Negativo",
+    explicacion: "Reflexiona si has distorsionado la verdad por miedo, interés personal o vanagloria, olvidando que Cristo es 'el camino, la verdad y la vida'."
+  },
+  { 
+    texto: "¿He desatendido mi responsabilidad de acercar a los demás a Dios con mi ejemplo y mi palabra?", 
+    valor: "Negativo",
+    explicacion: "Los católicos estamos llamados a vivir el evangelio, ser testimonio de esperanza, sal y luz en el mundo. Considera si en cambio eres apático y vives tu fe avergonzado y en silencio."
+  }
 ];
 
 
@@ -112,7 +264,10 @@ function showQuestion() {
   questionContainer.innerHTML = `
     <p><strong>${pregunta.texto}</strong></p>
     <label><input type="radio" name="respuesta" value="Sí"> Sí</label><br>
-<label><input type="radio" name="respuesta" value="No"> No</label>
+    <label><input type="radio" name="respuesta" value="No"> No</label>
+    <div style="margin-top: 15px; padding: 10px; background-color: #f9f9f9; border-left: 4px solid #007bff; font-size: 0.9em; color: #555;">
+      <strong>Explicación:</strong> ${pregunta.explicacion}
+    </div>
   `;
   updateProgress();
 }

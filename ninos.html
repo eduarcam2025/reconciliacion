@@ -39,6 +39,16 @@ button {
 button:disabled {
   background-color: #ccc;
 }
+.explicacion-box {
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff;
+  padding: 10px 15px;
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #555;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -57,32 +67,133 @@ const API_URL = 'https://app.nocodb.com/api/v2/tables/ma9gj7dnxydrbd3/records';
 const AUTH_TOKEN = 'bVeUflboREE5qKo-3C2ynKlfmxcFaRxDhS2h2Uh1';
 
 
+
 const preguntas = [
-  { texto: "¿He rezado mis oraciones?", valor: "Positivo" },
-  { texto: "¿He ido a Misa los Domingos?", valor: "Positivo" },
-  { texto: "¿He tomado el nombre de Dios en vano?", valor: "Negativo" },
-  { texto: "¿Me he distraído voluntariamente en Misa o en la Iglesia?", valor: "Negativo" },
-  { texto: "¿He ayudado en casa?", valor: "Positivo" },
-  { texto: "¿He sido egoísta o he tratado a mis padres y hermanos con poco cariño?", valor: "Negativo" },
-  { texto: "¿He obedecido a mis padres y profesores?", valor: "Positivo" },
-  { texto: "¿He compartido mis juguetes?", valor: "Positivo" },
-  { texto: "¿He sido impaciente?", valor: "Negativo" },
-  { texto: "¿Me he enfadado?", valor: "Negativo" },
-  { texto: "¿He sido caprichoso o pesado para que las cosas se hicieran como yo quiero?", valor: "Negativo" },
-  { texto: "¿Pierdo el tiempo en clase?", valor: "Negativo" },
-  { texto: "¿He hecho mis deberes lo mejor que puedo?", valor: "Positivo" },
-  { texto: "¿He copiado en los exámenes?", valor: "Negativo" },
-  { texto: "¿Me he peleado?", valor: "Negativo" },
-  { texto: "¿He hecho daño a alguna persona hablando mal de ella?", valor: "Negativo" },
-  { texto: "¿He dicho mentiras?", valor: "Negativo" },
-  { texto: "¿He robado algo?", valor: "Negativo" },
-  { texto: "¿He estropeado alguna cosa que no era mía a propósito?", valor: "Negativo" },
-  { texto: "¿He dado buen ejemplo?", valor: "Positivo" },
-  { texto: "¿He animado a otros a que hicieran cosas malas?", valor: "Negativo" },
-  { texto: "¿He sido egoísta de pensamiento o de obra?", valor: "Negativo" },
-  { texto: "¿He tenido celos de otros?", valor: "Negativo" },
-  { texto: "¿He excluido a alguien de mis juegos?", valor: "Negativo" },
-  { texto: "¿He rezado por los demás y les he ayudado para que estén más cerca de Dios?", valor: "Positivo" }
+  { 
+    texto: "¿He rezado mis oraciones?", 
+    valor: "Positivo",
+    explicacion: "Rezar significa hablar con Dios. Puedes rezar por las mañanas, antes de dormir o cuando sientas que necesitas ayuda."
+  },
+  { 
+    texto: "¿He ido a Misa los Domingos?", 
+    valor: "Positivo",
+    explicacion: "Ir a Misa es un momento especial para estar con Dios y con la comunidad cristiana. Los domingos es obligatorio ir si puedes."
+  },
+  { 
+    texto: "¿He tomado el nombre de Dios en vano?", 
+    valor: "Negativo",
+    explicacion: "Tomo el nombre de Dios en vano cuando: Estoy en la misa con pereza, distraído o de mal humor. Cuando me burlo de los compañeros llamados a participar activamente en la misa (leer, cantar, hacer la colecta, portar ofrendas) Cuando hago juramentos o promesas en el nombre de Dios sabiendo en mi corazón que es falso lo que prometo."
+  },
+  { 
+    texto: "¿Me he distraído voluntariamente en Misa o en la Iglesia?", 
+    valor: "Negativo",
+    explicacion: "Durante la Misa debemos estar atentos y rezar. Pensar en otras cosas o hacer ruido entristece a Dios y distrae a los demás."
+  },
+  { 
+    texto: "¿He ayudado en casa?", 
+    valor: "Positivo",
+    explicacion: "Ayudar en casa con tareas pequeñas muestra amor a tu familia y responsabilidad."
+  },
+  { 
+    texto: "¿He sido egoísta o he tratado a mis padres y hermanos con poco cariño?", 
+    valor: "Negativo",
+    explicacion: "El egoísmo es pensar solo en uno mismo. Debemos tratar a nuestra familia con amor, paciencia y respeto, conversando con serenidad sobre lo que nos molesta."
+  },
+  { 
+    texto: "¿He obedecido a mis padres y profesores?", 
+    valor: "Positivo",
+    explicacion: "Obedecer a quienes nos cuidan es parte de amarlos y respetarlos. Dios nos pide que honremos a nuestros padres."
+  },
+  { 
+    texto: "¿He compartido mis juguetes?", 
+    valor: "Positivo",
+    explicacion: "Cuando comparto, demuestro que no soy egoísta, sin embargo, también tengo derecho a pedir a los demás que traten mis cosas con igual generosidad y respeto."
+  },
+  { 
+    texto: "¿He sido impaciente?", 
+    valor: "Negativo",
+    explicacion: "Sentir enojo es una emoción humana, pero si grito, pateo o insulto, puedo lastimarme o lastimar a quienes me rodean. Debemos hablar sobre lo que nos molesta sin perder la calma."
+  },
+  { 
+    texto: "¿Me he enfadado?", 
+    valor: "Negativo",
+    explicacion: "Sentir enojo está bien, pero si grito, pateo o insulto, ya no está bien. Debemos controlarnos."
+  },
+  { 
+    texto: "¿He sido caprichoso o pesado para que las cosas se hicieran como yo quiero?", 
+    valor: "Negativo",
+    explicacion: "Hay momentos en los que debo comportarme de forma respetuosa, seguir instrucciones y reglas, cuando me llamen la atención ante mis faltas o no me den lo que quiero no debo reaccionar con berrinches o malas palabras."
+  },
+  {  
+    texto: "¿Pierdo el tiempo en clase?", 
+    valor: "Negativo",
+    explicacion: "Mi responsabilidad es pedir ayuda cuando no comprendo y valorar el tiempo que invierto en estudiar, además es mi deber atender a las orientaciones de mis maestros y no alterar la convivencia en el aula."
+  },
+  { 
+    texto: "¿He hecho mis deberes lo mejor que puedo?", 
+    valor: "Positivo",
+    explicacion: "Hacer bien los deberes es un acto de responsabilidad y respeto a mis profesores, padres y a mi mismo, además que de esa forma me apropio de lo visto en el aula."
+  },
+  { 
+    texto: "¿He copiado en los exámenes?", 
+    valor: "Negativo",
+    explicacion: "Copiar o ayudar a otros a que se copien amenaza al conocimiento. Es deshonesto y ofende a Dios, que nos ve siempre."
+  },
+  { 
+    texto: "¿Me he peleado?", 
+    valor: "Negativo",
+    explicacion: "Las peleas vienen del enojo y pueden hacer daño. Mejor resolver los problemas hablando con calma."
+  },
+  { 
+    texto: "¿He hecho daño a alguna persona hablando mal de ella?", 
+    valor: "Negativo",
+    explicacion: "Hablar mal de otros (chismes, insultos) es pecado. Daña su reputación y su corazón."
+  },
+  { 
+    texto: "¿He dicho mentiras?", 
+    valor: "Negativo",
+    explicacion: "Mentir es ocultar la verdad. Dios es la Verdad, por eso no debemos mentir, aunque sea 'una pequeña mentira'."
+  },
+  { 
+    texto: "¿He robado algo?", 
+    valor: "Negativo",
+    explicacion: "Robar es tomar lo que no es mío. Aunque sea un caramelo o un lápiz, es pecado."
+  },
+  { 
+    texto: "¿He estropeado alguna cosa que no era mía a propósito?", 
+    valor: "Negativo",
+    explicacion: "Dañar cosas ajenas es falta de respeto. Si no es mío, debo cuidarlo como si lo fuera."
+  },
+  { 
+    texto: "¿He dado buen ejemplo?", 
+    valor: "Positivo",
+    explicacion: "Cuando actúo bien, otros me imitan. Puedo ayudar a que otros se acerquen a Dios con mi ejemplo."
+  },
+  { 
+    texto: "¿He animado a otros a que hicieran cosas malas?", 
+    valor: "Negativo",
+    explicacion: "Es necesario que busque orientación si en mi corazón siento que está bien juntarme con otros para romper las normas, burlarme de otras personas, o ser indiferentes cuando alguien necesite ayuda."
+  },
+  { 
+    texto: "¿He sido egoísta de pensamiento o de obra?", 
+    valor: "Negativo",
+    explicacion: "El egoísmo puede ser un sintoma de envidia, y la envidia ante los meritos y poseciones de otros, son contrarias a Dios."
+  },
+  { 
+    texto: "¿He tenido celos de otros?", 
+    valor: "Negativo",
+    explicacion: "Los celos son enojarse porque otro tiene algo bueno. Debemos alegrarnos por los demás."
+  },
+  { 
+    texto: "¿He excluido a alguien de mis juegos?", 
+    valor: "Negativo",
+    explicacion: "Jesús nos enseña a incluir a todos."
+  },
+  { 
+    texto: "¿He rezado por los demás y les he ayudado para que estén más cerca de Dios?", 
+    valor: "Positivo",
+    explicacion: "Rezar por otros es amarlos. Ayudarles a ser mejores es cooperar con la obra de Dios."
+  }
 ];
 
 
@@ -98,7 +209,10 @@ function showQuestion() {
   questionContainer.innerHTML = `
     <p><strong>${pregunta.texto}</strong></p>
     <label><input type="radio" name="respuesta" value="Sí"> Sí</label><br>
-<label><input type="radio" name="respuesta" value="No"> No</label>
+    <label><input type="radio" name="respuesta" value="No"> No</label>
+    <div class="explicacion-box">
+      <strong>Reflexión:</strong> ${pregunta.explicacion}
+    </div>
   `;
   updateProgress();
 }
