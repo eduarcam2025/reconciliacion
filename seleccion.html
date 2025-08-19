@@ -16,6 +16,7 @@
       align-items: center;
       justify-content: center;
       transition: background-image 0.5s ease;
+      padding-bottom: 20px;
     }
 
     h1 {
@@ -32,6 +33,9 @@
       justify-content: center;
       position: relative;
       z-index: 2;
+      flex-grow: 1;
+      align-items: center;
+      width: 100%;
     }
 
     .card {
@@ -57,6 +61,44 @@
 
     .card p {
       color: #555;
+    }
+    
+    .bloque {
+      display: block;
+      margin-bottom: 3px;
+    }
+    
+    footer {
+      margin-top: 30px;
+      font-size: 0.75em;
+      color: #333;
+      text-align: center;
+      padding: 15px;
+      border-top: 1px solid #eee;
+      line-height: 1.5;
+      background-color: #f9f9f9;
+      border-radius: 0 0 10px 10px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.2s ease;
+    }
+    
+    footer:hover {
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+    
+    footer a {
+      color: #0066cc;
+      text-decoration: none;
+      border-bottom: 1px dashed #0066cc;
+      transition: all 0.2s ease;
+    }
+    
+    footer a:hover {
+      color: #004499;
+      border-bottom: 1px solid #004499;
     }
   </style>
 </head>
@@ -90,16 +132,28 @@
     </div>
   </div>
 
-
-  </div>
+  <footer role="contentinfo">
+    <span class="bloque">© 2025 Soluciones Integrales SICC.</span> 
+    <span class="bloque">Todos los derechos reservados.</span>
+    <span class="bloque">Esta aplicación, su código fuente, diseño,</span>
+    <span class="bloque">contenido, textos, interfaces y funcionalidades</span>
+    <span class="bloque">son propiedad exclusiva de Soluciones Integrales SICC.</span>
+    <span class="bloque">Queda prohibida su reproducción, distribución, modificación,</span>
+    <span class="bloque">uso comercial, transferencia o explotación, total o parcial,</span>
+    <span class="bloque">sin autorización escrita expresa.</span>
+    
+    <a href="mailto:sicc.solution@gmail.com" aria-label="Solicitar licencia por correo electrónico">
+      Solicite licencia aquí
+    </a>
+  </footer>
 
   <script>
-  const fondos = {
-    ninos: "imgs/nina2.jpg",
-    jovenes: "imgs/jovenes1.jpg",
-    adultos: "imgs/adulto1.jpg",
-    default: "imgs/espiritusanto.jpg"
-  };
+    const fondos = {
+      ninos: "imgs/nina2.jpg",
+      jovenes: "imgs/jovenes1.jpg",
+      adultos: "imgs/adulto1.jpg",
+      default: "imgs/espiritusanto.jpg"
+    };
 
     function cambiarFondo(grupo) {
       document.body.style.backgroundImage = `url('${fondos[grupo]}')`;
@@ -108,9 +162,6 @@
     function restaurarFondo() {
       document.body.style.backgroundImage = `url('${fondos.default}')`;
     }
-
   </script>
-
-
 </body>
 </html>

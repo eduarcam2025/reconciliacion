@@ -2,92 +2,282 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="description" content="Oración para el Sacramento de la Reconciliación - Espíritu Santo guíanos">
   <title>Oración - Sacramento de la Reconciliación</title>
+  
   <style>
-    * {
+    /* Variables de diseño para coherencia */
+    :root {
+      --primary-color: #ffcc00;
+      --primary-dark: #e6b800;
+      --overlay-dark: rgba(0, 0, 0, 0.65);
+      --transition-standard: all 0.3s ease;
+      --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --container-max-width: 700px;
+    }
+
+    /* Reset mejorado */
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    /* Estilos base */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: url('imgs/espiritusanto.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
       position: relative;
+      padding-bottom: 20px;
+      line-height: 1.6;
     }
 
+    /* Overlay oscuro */
     body::before {
       content: "";
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      z-index: 0;
+      background-color: var(--overlay-dark);
+      z-index: -1;
     }
 
+    /* Contenedor principal */
     .container {
       position: relative;
       z-index: 1;
-      max-width: 700px;
+      max-width: var(--container-max-width);
+      width: 90%;
       padding: 2rem;
       background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      backdrop-filter: blur(5px);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: var(--shadow-light);
+      transition: var(--transition-standard);
+      margin-top: 20px;
     }
 
+    /* Títulos */
     h1 {
       font-size: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
+    /* Efecto máquina de escribir */
     .typewriter {
       font-size: 1.1rem;
-      line-height: 1.6;
+      line-height: 1.7;
       white-space: pre-line;
-      min-height: 200px;
+      min-height: 240px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.2);
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      transition: var(--transition-standard);
     }
 
+    /* Botón continuar */
     .btn-continuar {
       display: inline-block;
-      margin-top: 2rem;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      background-color: #ffcc00;
+      padding: 0.85rem 2.3rem;
+      font-size: 1.05rem;
+      background-color: var(--primary-color);
       color: #000;
       border: none;
-      border-radius: 30px;
+      border-radius: 32px;
       cursor: pointer;
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+      font-weight: 600;
+      transition: var(--transition-standard);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-continuar:hover {
-      background-color: #e6b800;
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.8px;
+    }
+
+    .btn-continuar:active {
+      transform: translateY(0);
+    }
+
+    .btn-continuar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #333;
+      text-align: center;
+      padding: 1.1rem 1.3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      line-height: 1.5;
+      background-color: rgba(255, 255, 255);
+      border-radius: 0 0 14px 14px;
+      width: 90%;
+      max-width: var(--container-max-width);
+      box-shadow: var(--shadow-light);
+      transition: var(--transition-standard);
+      backdrop-filter: blur(4px);
+    }
+
+    .footer-link {
+      color: #66ccff;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dashed rgba(102, 204, 255, 0.5);
+      transition: var(--transition-standard);
+    }
+
+    .footer-link:hover {
+      color: #99e6ff;
+      border-bottom: 1px solid #99e6ff;
+    }
+
+    /* Mejoras de accesibilidad */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.7rem 1.4rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .typewriter {
+        font-size: 1.05rem;
+        min-height: 210px;
+        padding: 8px 12px;
+      }
+      
+      .btn-continuar {
+        padding: 0.75rem 2rem;
+        font-size: 0.95rem;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.4rem 1.2rem;
+        margin-top: 10px;
+      }
+      
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.3rem;
+      }
+      
+      .typewriter {
+        font-size: 0.95rem;
+        min-height: 190px;
+        line-height: 1.6;
+      }
+      
+      footer {
+        font-size: 0.75rem;
+        padding: 0.9rem;
+      }
+    }
+    
+    /* Ajustes para pantallas pequeñas */
+    @media (max-height: 600px) {
+      body {
+        padding-bottom: 10px;
+      }
+      
+      .container {
+        margin-top: 5px;
+        padding: 1.2rem;
+      }
+      
+      .typewriter {
+        min-height: 160px;
+        font-size: 0.9rem;
+      }
+      
+      footer {
+        margin-top: 1.2rem;
+        padding: 0.8rem;
+      }
     }
   </style>
-
 </head>
 <body>
-
-  <div class="container">
-    <h1>Oración</h1>
+  <!-- Contenido principal -->
+  <div class="container" role="main">
+    <h1>Oración al Espíritu Santo</h1>
     <div class="typewriter" id="typewriter"></div>
-    <br><br>
     <a href="seleccion.html" class="btn-continuar" id="continueBtn" style="display: none;">Continuar</a>
   </div>
+  
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <p>
+      <span class="bloque">© 2025 Soluciones Integrales SICC.</span> 
+      <span class="bloque">Todos los derechos reservados.</span>
+    </p>
+    <p class="bloque">Esta aplicación, su código fuente, diseño, contenido, textos, interfaces y funcionalidades</span>
+    <p class="bloque">son propiedad exclusiva de Soluciones Integrales SICC.</span>
+    <p class="bloque">Queda prohibida su reproducción, distribución, modificación,</span>
+    <p class="bloque">uso comercial, transferencia o explotación, total o parcial,</span>
+    <p class="bloque">sin autorización escrita expresa.</span>
+    
+    <p style="margin-top: 0.7rem;">
+      <a href="mailto:sicc.solution@gmail.com" class="footer-link" aria-label="Solicitar licencia por correo electrónico">
+        Solicite licencia aquí
+      </a>
+    </p>
+  </footer>
 
   <script>
-    const textoOriginal = `Ven, Espíritu Santo,
+    // Esperar a que el DOM esté completamente cargado
+    document.addEventListener('DOMContentLoaded', () => {
+      const textoOriginal = `Ven, Espíritu Santo,
 Llena los corazones de tus fieles
 y enciende en ellos
 el fuego de tu amor.
@@ -104,27 +294,47 @@ gocemos siempre de tu consuelo.
 Por Jesucristo Nuestro Señor.
 Amén.`;
 
-    const palabras = textoOriginal.split(/(?<=\\S)\\s/); // Divide por espacio, manteniendo saltos
-    const contenedor = document.getElementById("typewriter");
-    const btnContinuar = document.getElementById("continueBtn");
+      const typewriterElement = document.getElementById("typewriter");
+      const continueBtn = document.getElementById("continueBtn");
+      
+      // Variables para el efecto
+      let index = 0;
+      const speed = 50; // Velocidad en milisegundos
+      const pauseBetweenParagraphs = 800; // Pausa entre párrafos
 
-    let index = 0;
-
-    function escribirPalabra() {
-      if (index < palabras.length) {
-        contenedor.textContent += palabras[index] + (palabras[index].match(/\n/) ? '' : ' ');
-        index++;
-        setTimeout(escribirPalabra, 1500); // Velocidad: 150ms por palabra
-      } else {
-        btnContinuar.style.display = "inline-block"; // Mostrar botón al terminar
+      // Función para escribir el texto
+      function typeWriter() {
+        if (index < textoOriginal.length) {
+          // Si encontramos un salto de línea, hacemos una pausa más larga
+          if (textoOriginal.charAt(index) === '\n') {
+            typewriterElement.innerHTML += '<br>';
+            index++;
+            setTimeout(typeWriter, pauseBetweenParagraphs);
+          } else {
+            typewriterElement.innerHTML += textoOriginal.charAt(index);
+            index++;
+            setTimeout(typeWriter, speed);
+          }
+        } else {
+          // Mostrar el botón al terminar
+          setTimeout(() => {
+            continueBtn.style.display = "inline-block";
+            continueBtn.style.opacity = "0";
+            continueBtn.style.transform = "translateY(10px)";
+            
+            // Animación de aparición del botón
+            setTimeout(() => {
+              continueBtn.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+              continueBtn.style.opacity = "1";
+              continueBtn.style.transform = "translateY(0)";
+            }, 50);
+          }, 300);
+        }
       }
-    }
 
-    // Iniciar efecto al cargar la página
-    window.onload = () => {
-      setTimeout(escribirPalabra, 500); // Retraso inicial
-    };
+      // Iniciar el efecto después de un breve retraso
+      setTimeout(typeWriter, 800);
+    });
   </script>
-
 </body>
 </html>
